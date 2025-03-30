@@ -6,4 +6,14 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '/dl-course-project/',
   plugins: [react(), tailwindcss(),],
+  build: {
+    outDir: './dist', 
+    emptyOutDir: true,
+    manifest: true,
+    rollupOptions: {
+      input: {
+        main: './src/main.jsx'
+      }
+    }
+  }
 })
