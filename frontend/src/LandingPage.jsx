@@ -8,11 +8,29 @@ const LandingPage = () => {
   const [processing, setProcessing] = useState(false);
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
+  const [inputImages, setInputImages] = useState({
+    rgb: null,
+    ir: null,
+    rgbPreview: null,
+    irPreview: null
+  });
 
   const handleProcessImages = async (rgbImage, irImage) => {
     try {
       setProcessing(true);
       setError(null);
+
+      // Create preview URLs for display
+      const rgbPreview = URL.createObjectURL(rgbImage);
+      const irPreview = URL.createObjectURL(irImage);
+      
+      // Store images and previews in state
+      setInputImages({
+        rgb: rgbImage,
+        ir: irImage,
+        rgbPreview,
+        irPreview
+      });
 
       const formData = new FormData();
       formData.append('rgb_image', rgbImage);
@@ -29,8 +47,7 @@ const LandingPage = () => {
 
       const data = await response.json();
       setResults(data);
-      console.log(data);
-      setOutputOpen(true);
+      setOutputOpen(false);
     }
     catch (err) {
       setError(err.message || "Failed to process images");
@@ -83,7 +100,7 @@ const LandingPage = () => {
           <button 
             className="bg-blue-600 bg-opacity-90 hover:bg-opacity-100 text-white px-8 py-2 rounded-md transition-all"
             onClick={() => setOutputOpen(true)}
-            disabled={!results}
+            // disabled={!results}
           >
             Output
           </button>
@@ -101,11 +118,8 @@ const LandingPage = () => {
       <OutputOverlay 
         open={outputOpen} 
         onOpenChange={setOutputOpen}
-        response={results}
-        // message={results.message}
-        // inputImages={results.input_images}
-        // output={results.data}
-        // results={results.data}
+        response={results || null}
+        images={inputImages}
       />
     </div>
   );

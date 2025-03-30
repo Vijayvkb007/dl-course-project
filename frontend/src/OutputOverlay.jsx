@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const OutputOverlay = ({ 
   open, 
   onOpenChange,
-  response
+  response,
+  images
 }) => {
   if (!open) return null;
+  let message = null;
+  let output = null;
+  let inputImages = null;
 
-  const message = response.message;
-  const output = response.output;
-  const inputImages = response.data;
-  console.log(message);
-  console.log(output);
-  console.log(inputImages);
+  try {
+    message = response.message;
+    output = response.output;
+    inputImages = images;
+  } 
+  catch (err) {
+    console.log(err);
+    console.log(response);
+  }
+  finally {
+    console.log(response);
+  }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -28,7 +38,7 @@ const OutputOverlay = ({
             </button>
           </div>
 
-          {response.output ? (
+          {response ? (
           <div>
             <div>
               <div className="bg-gray-100 rounded-lg p-4 mb-6">
@@ -43,7 +53,7 @@ const OutputOverlay = ({
                 <div className="flex flex-col items-center">
                     <img 
                       key='1'
-                      src={inputImages.rgb_image} 
+                      src={inputImages.rgbPreview} 
                       alt={`RGB Image`} 
                       className="rounded-md object-contain mx-4 shadow-neutral-600"
                     />
@@ -52,7 +62,7 @@ const OutputOverlay = ({
                   <div className="flex flex-col items-center">
                     <img 
                       key='2'
-                      src={inputImages.ir_image} 
+                      src={inputImages.irPreview} 
                       alt={`IR Image`} 
                       className="rounded-md object-contain mx-4 shadow-neutral-600"
                     />
@@ -79,7 +89,7 @@ const OutputOverlay = ({
           </div>
           )
           :
-          (<p>No results available</p>)}
+          (<p>No results available! Possible errors: Error on server side.</p>)}
         </div>
       </div>
     </div>
