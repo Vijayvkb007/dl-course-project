@@ -1,8 +1,0 @@
-Django
-django-cors-headers
-djangorestframework
-python-decouple
-whitenoise
-pillow
-torch
-torch-vision

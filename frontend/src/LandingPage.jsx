@@ -36,7 +36,9 @@ const LandingPage = () => {
       formData.append('rgb_image', rgbImage);
       formData.append('ir_image', irImage);
 
-      const response = await fetch('http://localhost:8000/api/upload/', {
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      const response = await fetch("https://dl-course-project-django-backend.onrender.com/api/upload/", {
         method: "POST",
         body: formData,
       });
