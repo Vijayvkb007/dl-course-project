@@ -29,6 +29,7 @@ const LandingPage = () => {
 
       const data = await response.json();
       setResults(data);
+      console.log(data);
       setOutputOpen(true);
     }
     catch (err) {
@@ -100,6 +101,10 @@ const LandingPage = () => {
       <OutputOverlay 
         open={outputOpen} 
         onOpenChange={setOutputOpen}
+        response={results}
+        // message={results.message}
+        // inputImages={results.input_images}
+        // output={results.data}
         // results={results.data}
       />
     </div>

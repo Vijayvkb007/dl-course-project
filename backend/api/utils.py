@@ -155,8 +155,8 @@ def prediction():
     smoke_present = probabilities[1]
     print(probabilities)
 
-    otpt = {"Fire detected": f"{'Yes' if fire_present else 'No'}",
-            "Smoke detected": f"{'Yes' if smoke_present else 'No'}"
+    otpt = {"fire_detected": f"{'Yes' if fire_present else 'No'}",
+            "smoke_detected": f"{'Yes' if smoke_present else 'No'}"
     }    
     return otpt
 
