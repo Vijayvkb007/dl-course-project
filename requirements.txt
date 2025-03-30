@@ -4,5 +4,9 @@ djangorestframework
 python-decouple
 whitenoise
 pillow
-torch
-torch-vision
+# CPU-only PyTorch packages
+torch==2.2.1+cpu --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.17.1+cpu --index-url https://download.pytorch.org/whl/cpu
+
+# Other dependencies
+six>=1.16.0
