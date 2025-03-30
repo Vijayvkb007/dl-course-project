@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const InputOverlay = ({ open, onOpenChange, onProcessImages }) => {
+const InputOverlay = ({ open, onOpenChange, onProcessImages, processing, error }) => {
   const [rgbImage, setRgbImage] = useState(null);
   const [irImage, setIrImage] = useState(null);
   const [rgbPreview, setRgbPreview] = useState(null);
@@ -156,10 +156,10 @@ const InputOverlay = ({ open, onOpenChange, onProcessImages }) => {
               className={`px-6 py-2 rounded-md text-white ${
                 rgbImage && irImage ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-400 cursor-not-allowed'
               }`}
-              disabled={!rgbImage || !irImage}
+              disabled={!rgbImage || !irImage || processing}
               onClick={handleProcess}
             >
-              Process Images
+              {processing ? "Processing..." : "Process Images"}
             </button>
           </div>
         </div>

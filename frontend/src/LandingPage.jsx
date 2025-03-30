@@ -5,11 +5,39 @@ import OutputOverlay from './OutputOverlay';
 const LandingPage = () => {
   const [inputOpen, setInputOpen] = useState(false);
   const [outputOpen, setOutputOpen] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
 
-  const handleProcessImages = (rgbImage, irImage) => {
-    console.log('Processing images:', rgbImage, irImage);
-    // Here you would typically process the images and then open the output overlay
-    setOutputOpen(true);
+  const handleProcessImages = async (rgbImage, irImage) => {
+    try {
+      setProcessing(true);
+      setError(null);
+
+      const formData = new FormData();
+      formData.append('rgb_image', rgbImage);
+      formData.append('ir_image', irImage);
+
+      const response = await fetch('http://localhost:8000/api/upload/', {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload images');
+      }
+
+      const data = await response.json();
+      setResults(data);
+      setOutputOpen(true);
+    }
+    catch (err) {
+      setError(err.message || "Failed to process images");
+      console.error("Error:", err);
+    }
+    finally {
+      setProcessing(false);
+    }
   };
 
   return (
@@ -32,8 +60,8 @@ const LandingPage = () => {
           NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA, SURATHKAL
         </h2>
         <div className="w-24 h-1 bg-white bg-opacity-50 mx-auto mb-6"></div>
-        <h3 className="text-lg md:text-xl font-medium text-white mb-4">
-          Deep Learning Course Project: "Wildfire Detection using drone images"
+        <h3 className="text-lg md:text-xl font-bold text-white mb-4">
+          Deep Learning Course Project: "<em className="text-red-500">Wildfire Detection using drone images</em>"
         </h3>
         <p className="text-md md:text-lg text-white mb-2">
           Carried out by: Vijay Kumar B (221AI043) & Tarlana Sahil (221AI040)
@@ -47,12 +75,14 @@ const LandingPage = () => {
           <button 
             className="bg-opacity-10 hover:bg-opacity-20 text-white px-8 py-2 rounded-md border border-white border-opacity-30 hover:border-opacity-50 transition-all"
             onClick={() => setInputOpen(true)}
+            disabled={processing}
           >
-            Input
+            {processing ? "Processing..." : "Input"}
           </button>
           <button 
             className="bg-blue-600 bg-opacity-90 hover:bg-opacity-100 text-white px-8 py-2 rounded-md transition-all"
             onClick={() => setOutputOpen(true)}
+            disabled={!results}
           >
             Output
           </button>
@@ -64,10 +94,13 @@ const LandingPage = () => {
         open={inputOpen} 
         onOpenChange={setInputOpen} 
         onProcessImages={handleProcessImages}
+        processsing={processing}
+        error={error}
       />
       <OutputOverlay 
         open={outputOpen} 
         onOpenChange={setOutputOpen}
+        // results={results.data}
       />
     </div>
   );
