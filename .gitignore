@@ -1,0 +1,25 @@
+# no need of .env
+# Virtual Environment
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+
+# Database
+db.sqlite3
+
+# Static files
+staticfiles/
+
+# Media files
+media/
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
