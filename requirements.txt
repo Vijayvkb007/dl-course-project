@@ -6,7 +6,7 @@ whitenoise
 pillow
 # CPU-only PyTorch packages
 torch==2.0.0 --index-url https://download.pytorch.org/whl/cpu
-torchvision==0.17.1+cpu --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.10.0+cpu --index-url https://download.pytorch.org/whl/cpu
 
 # Other dependencies
 six
