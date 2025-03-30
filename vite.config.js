@@ -7,13 +7,17 @@ export default defineConfig({
   base: '/dl-course-project/',
   plugins: [react(), tailwindcss(),],
   build: {
-    outDir: './dist', 
+    outDir: 'dist', 
     emptyOutDir: true,
+    assetsDir: 'assets',
     manifest: true,
     rollupOptions: {
       input: {
         main: './src/main.jsx'
       }
     }
+  },
+  server: {
+    port: 3000
   }
 })
