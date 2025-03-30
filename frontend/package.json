@@ -3,12 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/Vijayvkb007/dl-course-project/tree/frontend",
+  "homepage": "https://Vijayvkb007.github.io/vite-react-frontend",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --port 3000",
+    "start": "vite preview --port 10000",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
