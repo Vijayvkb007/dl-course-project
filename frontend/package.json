@@ -1,15 +1,13 @@
 {
   "name": "frontend",
-  "private": true,
+  "homepage": "https://vijayvkb007.github.io/vite-dl-app/",
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Vijayvkb007.github.io/vite-react-frontend",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --port 3000",
-    "start": "vite preview --port 10000",
+    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

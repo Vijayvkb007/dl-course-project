@@ -4,20 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/vite-react-frontend/',
-  plugins: [react(), tailwindcss(),],
-  build: {
-    outDir: 'dist', 
-    emptyOutDir: true,
-    assetsDir: 'assets',
-    manifest: true,
-    rollupOptions: {
-      input: {
-        main: './src/main.jsx'
-      }
-    }
-  },
-  server: {
-    port: 3000
-  }
+  base: '/vite-dl-app',
+  plugins: [react(), tailwindcss(),]
 })
+// https://github.com/Vijayvkb007/vite-dl-app.git
