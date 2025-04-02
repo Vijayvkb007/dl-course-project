@@ -6,8 +6,12 @@ whitenoise
 pillow
 gunicorn
 # CPU-only PyTorch packages
-torch --index-url https://download.pytorch.org/whl/cpu
-torchvision --index-url https://download.pytorch.org/whl/cpu
+# torch --index-url https://download.pytorch.org/whl/cpu
+# torchvision --index-url https://download.pytorch.org/whl/cpu
 
 # Other dependencies
 six
+
+# CPU-only PyTorch (Linux)
+torch==2.1.0+cpu --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.16.0+cpu --index-url https://download.pytorch.org/whl/cpu
