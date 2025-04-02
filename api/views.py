@@ -23,16 +23,13 @@ class ImageView(APIView):
         )
         
         if qs_serializer.is_valid():
-            image_instance = qs_serializer.save()
-            
-            rgb_path = image_instance.rgb_image.path
-            ir_path = image_instance.ir_image.path
+            qs_serializer.save()
             
             return Response({
                 "message": "Images uploaded successfully",
                 "data": qs_serializer.data, 
-                "output": prediction()
             }, status=status.HTTP_200_OK)
+            
         return Response({
             "message": qs_serializer.errors,
             "data": None
@@ -41,8 +38,5 @@ class ImageView(APIView):
     def get(self, request):
         qs = Image.objects.all()
         qs_serializer = ImageSerializer(qs, many=True)
-        return Response({
-                "data": qs_serializer.data, 
-                "output": prediction()
-            }, status=status.HTTP_200_OK)
+        return Response(qs_serializer.data, status=status.HTTP_200_OK)
     
