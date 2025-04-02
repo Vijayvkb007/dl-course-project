@@ -134,10 +134,21 @@ model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cpu')))
 model.eval()
 
 # Specify the paths to the RGB and thermal images
-rgb_image_path = os.path.join(BASE_DIR, 'media', 'rgb_images', 'rgb_image.jpg')
-thermal_image_path = os.path.join(BASE_DIR, 'media', 'ir_images', 'ir_image.jpg')
+# rgb_image_path = os.path.join(BASE_DIR, 'media', 'rgb_images', 'rgb_image.jpg')
+# thermal_image_path = os.path.join(BASE_DIR, 'media', 'ir_images', 'ir_image.jpg')
+def get_latest_images():
+    rgb_folder = os.path.join(BASE_DIR, 'media', 'rgb_images')
+    rgb_images = sorted(os.listdir(rgb_folder))
+
+    thermal_folder = os.path.join(BASE_DIR, 'media', 'ir_images')
+    thermal_images = sorted(os.listdir(thermal_folder))
+
+    rgb_image_path = os.path.join(rgb_folder, rgb_images[-1])
+    thermal_image_path = os.path.join(thermal_folder, thermal_images[-1])
+    return rgb_image_path, thermal_image_path, rgb_images[-1], thermal_images[-1]
 
 def prediction():
+    rgb_image_path, thermal_image_path, rgb_image_timestamp, thermal_image_timestamp = get_latest_images()
     rgb_image = Image.open(rgb_image_path).convert('RGB')
     thermal_image = Image.open(thermal_image_path).convert('L')
     
@@ -156,7 +167,9 @@ def prediction():
     print(probabilities)
 
     otpt = {"fire_detected": f"{'Yes' if fire_present else 'No'}",
-            "smoke_detected": f"{'Yes' if smoke_present else 'No'}"
+            "smoke_detected": f"{'Yes' if smoke_present else 'No'}",
+            "rgb_image_timestamp": rgb_image_timestamp,
+            "thermal_image_timestamp": thermal_image_timestamp
     }    
     return otpt
 
