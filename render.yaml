@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: dl-course-project-django-backend
+    plan: hobby
+    healthCheckPath: /
